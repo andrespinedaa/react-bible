@@ -11,11 +11,16 @@ export type cite = {
   verseNumberStart: number;
   verseNumberEnd?: number;
 };
+export type anchor = {
+  verses: verse[];
+  bookName: string;
+  chapterNumber: number;
+};
 export type verse = {
   text: string;
   number: number;
   jesusWords?: boolean;
-  anchor?: verse;
+  anchor?: anchor;
 };
 export type paragraph = {
   title?: string;

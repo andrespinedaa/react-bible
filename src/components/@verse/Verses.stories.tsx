@@ -58,15 +58,53 @@ export const VersesBox: Story = {
     psalmStyle: true,
     verses: [
       {
+        title: "Jesús y Lázaro",
+        verses: [
+          {
+            text: `Estaba entonces enfermo uno llamado Lázaro, de Betania, la aldea de María y de Marta su hermana.@`,
+            number: 1,
+            anchor: {
+              bookName: "Lucas",
+              chapterNumber: 10,
+              verses: [
+                {
+                  number: 38,
+                  text: "Aconteció que yendo de camino, entró en una aldea; y una mujer llamada Marta le recibió en su casa.",
+                },
+                {
+                  number: 39,
+                  text: "Esta tenía una hermana que se llamaba María,@ la cual, sentándose a los pies de Jesús, oía su palabra.",
+                },
+              ],
+            },
+          },
+          {
+            text: "(María, cuyo hermano Lázaro estaba enfermo, fue la que ungió al Señor con perfume, y le enjugó los pies con sus cabellos.@)",
+            number: 2,
+            anchor: {
+              bookName: "Juan",
+              chapterNumber: 12,
+              verses: [
+                {
+                  number: 3,
+                  text: " Entonces María tomó una libra de perfume de nardo puro, de mucho precio, y ungió los pies de Jesús, y los enjugó con sus cabellos;@y la casa se llenó del olor del perfume.",
+                },
+              ],
+            },
+          },
+        ],
+      },
+
+      /* {
         title: "El justo y los pecadores",
         verses: [
           {
             number: 1,
-            text: "Bienaventurado el varón que no anduvo en \@ consejo de malos,\nNi estuvo en camino de pecadores,\nNi en silla de escarnecedores se ha sentado;",
+            text: "Bienaventurado el varón que no anduvo en consejo de malos,\nNi estuvo en camino de pecadores,\nNi en silla de escarnecedores se ha sentado;",
           },
           {
             number: 2,
-            text: "Sino que en la ley de Jehová está su delicia,\nY en su ley medita de día y de noche.\n",
+            text: "Sino que en la ley de Jehová está su delicia,\nY en su ley medita de día y de noche.",
           },
           {
             number: 3,
@@ -89,7 +127,7 @@ export const VersesBox: Story = {
             text: "Porque Jehová conoce el camino de los justos;\nMas la senda de los malos perecerá.",
           },
         ],
-      },
+      }, */
     ],
   },
   render: (args) => (

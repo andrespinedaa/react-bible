@@ -1,6 +1,7 @@
 import React from "react";
 import { useBibleContext } from "../components/@contexts";
 import {
+  anchor,
   paragraph,
   type book,
   type chapter,
@@ -14,6 +15,8 @@ type returnUseBible = {
   book: book;
   chapter: chapter;
   verses: paragraph[];
+  references: anchor[];
+  setReferences: React.Dispatch<React.SetStateAction<anchor[]>>;
 };
 
 export function useBible(): returnUseBible {
@@ -23,6 +26,7 @@ export function useBible(): returnUseBible {
   const [book, setBook] = React.useState<book>({} as book);
   const [chapter, setChapter] = React.useState<chapter>({} as chapter);
   const [verses, setVerses] = React.useState<paragraph[]>([]);
+  const [references, setReferences] = React.useState<anchor[]>([]);
 
   const setter = React.useCallback(() => {
     setVersion(bible.versions[0]);
@@ -43,5 +47,7 @@ export function useBible(): returnUseBible {
     chapter,
     testament,
     verses,
+    references,
+    setReferences,
   };
 }
