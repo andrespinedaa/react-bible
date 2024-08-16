@@ -31,8 +31,8 @@ export type chapter = {
   title: string;
   number: number;
   amountVerses: number;
+  versesAcross?: anchor[];
   verses: paragraph[];
-  AcrossVerses: cite[];
 };
 export type book = {
   abrev: string;

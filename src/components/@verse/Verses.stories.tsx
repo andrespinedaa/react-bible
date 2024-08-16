@@ -5,43 +5,83 @@ import Verses from "./Verses";
 
 type VersesProps = React.ComponentProps<typeof Verses>;
 
+const mockVerses = [
+	{
+		title: "Jesús y Lázaro",
+		verses: [
+			{
+				text: `Estaba entonces enfermo uno llamado Lázaro, de Betania, la aldea de María y de Marta su hermana.@`,
+				number: 1,
+				anchor: {
+					bookName: "Lucas",
+					chapterNumber: 10,
+					verses: [
+						{
+							number: 38,
+							text: "Aconteció que yendo de camino, entró en una aldea; y una mujer llamada Marta le recibió en su casa.",
+						},
+						{
+							number: 39,
+							text: "Esta tenía una hermana que se llamaba María,@ la cual, sentándose a los pies de Jesús, oía su palabra.",
+						},
+					],
+				},
+			},
+			{
+				text: "(María, cuyo hermano Lázaro estaba enfermo, fue la que ungió al Señor con perfume, y le enjugó los pies con sus cabellos.@)",
+				number: 2,
+				anchor: {
+					bookName: "Juan",
+					chapterNumber: 12,
+					verses: [
+						{
+							number: 3,
+							text: " Entonces María tomó una libra de perfume de nardo puro, de mucho precio, y ungió los pies de Jesús, y los enjugó con sus cabellos;@y la casa se llenó del olor del perfume.",
+						},
+					],
+				},
+			},
+		],
+	},
+];
+
 const meta: Meta<VersesProps> = {
-  title: "Verse/Verses",
-  component: Verses,
-  argTypes: {
-    firstNumber: {
-      control: "select",
-      options: ["chapter", "verse", "chapterAndVerse"],
-      description: "Number to display, verse, chapter, or both",
-    },
-    alignText: {
-      control: "select",
-      options: ["left", "center", "right"],
-      description: "Align text",
-    },
-    firstNumberBig: {
-      control: "boolean",
-      description: "Make the first number big",
-    },
-    separateVerses: {
-      control: "boolean",
-      description: "Separate verses",
-    },
-    verses: {
-      control: "object",
-      description: "Paragraph list",
-    },
-    children: {
-      control: {
-        disable: true,
-      },
-      description: "Children",
-    },
-    psalmStyle: {
-      control: "boolean",
-      description: "Use psalm style",
-    },
-  },
+	title: "Verse/Verses",
+	component: Verses,
+	argTypes: {
+		firstNumber: {
+			control: "select",
+			options: ["chapter", "verse", "chapterAndVerse"],
+			description: "Number to display, verse, chapter, or both",
+		},
+		alignText: {
+			control: "select",
+			options: ["left", "center", "right"],
+			description: "Align text",
+		},
+		firstNumberBig: {
+			control: "boolean",
+			description: "Make the first number big",
+		},
+		separateVerses: {
+			control: "boolean",
+			description: "Separate verses",
+		},
+		verses: {
+			control: "object",
+			description: "Paragraph list",
+		},
+		children: {
+			control: {
+				disable: true,
+			},
+			description: "Children",
+		},
+		psalmStyle: {
+			control: "boolean",
+			description: "Use psalm style",
+		},
+	},
 };
 
 export default meta;
@@ -49,99 +89,73 @@ export default meta;
 type Story = StoryObj<VersesProps>;
 
 export const VersesBox: Story = {
-  name: "Verses",
-  args: {
-    alignText: "left",
-    firstNumber: "chapter",
-    firstNumberBig: true,
-    separateVerses: true,
-    psalmStyle: true,
-    verses: [
-      {
-        title: "Jesús y Lázaro",
-        verses: [
-          {
-            text: `Estaba entonces enfermo uno llamado Lázaro, de Betania, la aldea de María y de Marta su hermana.@`,
-            number: 1,
-            anchor: {
-              bookName: "Lucas",
-              chapterNumber: 10,
-              verses: [
-                {
-                  number: 38,
-                  text: "Aconteció que yendo de camino, entró en una aldea; y una mujer llamada Marta le recibió en su casa.",
-                },
-                {
-                  number: 39,
-                  text: "Esta tenía una hermana que se llamaba María,@ la cual, sentándose a los pies de Jesús, oía su palabra.",
-                },
-              ],
-            },
-          },
-          {
-            text: "(María, cuyo hermano Lázaro estaba enfermo, fue la que ungió al Señor con perfume, y le enjugó los pies con sus cabellos.@)",
-            number: 2,
-            anchor: {
-              bookName: "Juan",
-              chapterNumber: 12,
-              verses: [
-                {
-                  number: 3,
-                  text: " Entonces María tomó una libra de perfume de nardo puro, de mucho precio, y ungió los pies de Jesús, y los enjugó con sus cabellos;@y la casa se llenó del olor del perfume.",
-                },
-              ],
-            },
-          },
-        ],
-      },
-
-      /* {
-        title: "El justo y los pecadores",
-        verses: [
-          {
-            number: 1,
-            text: "Bienaventurado el varón que no anduvo en consejo de malos,\nNi estuvo en camino de pecadores,\nNi en silla de escarnecedores se ha sentado;",
-          },
-          {
-            number: 2,
-            text: "Sino que en la ley de Jehová está su delicia,\nY en su ley medita de día y de noche.",
-          },
-          {
-            number: 3,
-            text: "Será como árbol plantado junto a corrientes de aguas,\nQue da su fruto en su tiempo,\nY su hoja no cae;\nY todo lo que hace, prosperará.",
-          },
-        ],
-      },
-      {
-        verses: [
-          {
-            number: 4,
-            text: "No así los malos,\nQue son como el tamo que arrebata el viento.",
-          },
-          {
-            number: 5,
-            text: "Por tanto, no se levantarán los malos en el juicio,\nNi los pecadores en la congregación de los justos.",
-          },
-          {
-            number: 6,
-            text: "Porque Jehová conoce el camino de los justos;\nMas la senda de los malos perecerá.",
-          },
-        ],
-      }, */
-    ],
-  },
-  render: (args) => (
-    <Verses {...args}>
-      <VerseHeader>
-        <VerseTitle />
-        <VerseSubTitle />
-      </VerseHeader>
-      <VerseBody>
-        <VerseNumber />
-        <VerseText />
-      </VerseBody>
-    </Verses>
-  ),
+	name: "Verses",
+	args: {
+		alignText: "left",
+		firstNumber: "chapter",
+		firstNumberBig: true,
+		separateVerses: true,
+		psalmStyle: true,
+		verses: [
+			{
+				title: "El justo y los pecadores",
+				verses: [
+					{
+						number: 1,
+						text: "Bienaventurado el varón que no anduvo en consejo de malos,\nNi estuvo en camino de pecadores,\nNi en silla de escarnecedores se ha sentado;",
+					},
+					{
+						number: 2,
+						text: "Sino que en la ley de Jehová está su delicia,\nY en su ley medita de día y de noche.",
+					},
+					{
+						number: 3,
+						text: "Será como árbol plantado junto a corrientes de aguas,\nQue da su fruto en su tiempo,\nY su hoja no cae;\nY todo lo que hace, prosperará.",
+					},
+				],
+			},
+			{
+				verses: [
+					{
+						number: 4,
+						text: "No así los malos,\nQue son como el tamo que arrebata el viento.",
+					},
+					{
+						number: 5,
+						text: "Por tanto, no se levantarán los malos en el juicio,\nNi los pecadores en la congregación de los justos.",
+					},
+					{
+						number: 6,
+						text: "Porque Jehová conoce el camino de los justos;\nMas la senda de los malos perecerá.",
+					},
+				],
+			},
+		],
+	},
+	render: (args) => (
+		<>
+			<Verses {...args}>
+				<VerseHeader>
+					<VerseTitle />
+					<VerseSubTitle />
+				</VerseHeader>
+				<VerseBody>
+					<VerseNumber />
+					<VerseText />
+				</VerseBody>
+			</Verses>
+			<Verses verses={mockVerses} >
+				<VerseHeader>
+					<VerseTitle />
+					<VerseSubTitle />
+				</VerseHeader>
+				<VerseBody>
+					<VerseNumber />
+					<VerseText />
+				</VerseBody>
+			</Verses>
+		</>
+	),
 };
 
 /* 
