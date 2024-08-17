@@ -1,7 +1,7 @@
 import _ from "lodash";
 import React from "react";
 import { v4 as uuidv4 } from "uuid";
-import { useVerseBodyContext } from "../../@contexts";
+import { useVerseBodyContext, useVersesContext } from "../../@contexts";
 import VerseReference from "../verseReference/VerseReference";
 
 /* HACER UN REGEX PARA CAPTURAR LAS PALARBAS DE JESUS */
@@ -13,6 +13,7 @@ interface VerseTextProps {
 }
 
 function VerseText({ text = undefined, children }: VerseTextProps) {
+	const { psalmStyle } = useVersesContext();
 	const { verse } = useVerseBodyContext();
 	const innerText = text ?? verse.text;
 
@@ -29,7 +30,7 @@ function VerseText({ text = undefined, children }: VerseTextProps) {
 						</React.Fragment>
 					);
 				})}
-				{partList.length > 1 && <br />}
+				{partList.length > 1 && psalmStyle && <br />}
 			</React.Fragment>
 		);
 	});
