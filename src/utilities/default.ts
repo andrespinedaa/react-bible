@@ -59,3 +59,7 @@ export type bible = {
   lenguages: lenguages;
   versions: version[];
 };
+
+export type letters = "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j" | "k" | "l" | "m" | "n" | "o" | "p" | "q" | "r" | "s" | "t" | "u" | "v" | "w" | "x" | "y" | "z" | "ñ";
+export type lettersEnglish = Exclude<letters, "ñ">;
+export type lettersSpanish = letters;
