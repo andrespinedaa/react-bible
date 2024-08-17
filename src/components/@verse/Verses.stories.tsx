@@ -2,10 +2,12 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { VerseBody, VerseNumber, VerseText } from "./verseBody";
 import { VerseHeader, VerseSubTitle, VerseTitle } from "./verseHeader";
 import Verses from "./Verses";
+import { paragraph } from "../../utilities";
+import VerseReference from "./verseReference/VerseReference";
 
 type VersesProps = React.ComponentProps<typeof Verses>;
 
-const mockVerses = [
+const mockVerses: paragraph[] = [
 	{
 		title: "Jesús y Lázaro",
 		verses: [
@@ -40,6 +42,23 @@ const mockVerses = [
 						},
 					],
 				},
+			},
+		],
+	},
+];
+
+const mockVersesPsalm: paragraph[] = [
+	{
+		title: "Un grito de angustia y un canto de alabanza",
+		subTitle: "Al músico principal; sobre Ajelet-sahar. Salmo de David.",
+		verses: [
+			{
+				number: 1,
+				text: "Dios mío, Dios mío, ¿por qué me has desamparado?@\n Lejos de mi salvación están las palabras de mi rugido.",
+			},
+			{
+				number: 7,
+				text: "Todos los que me ven\n escarnecen;\n Estiran la boca, menean la cabeza, diciendo: @",
 			},
 		],
 	},
@@ -134,7 +153,7 @@ export const VersesBox: Story = {
 	},
 	render: (args) => (
 		<>
-			<Verses {...args}>
+			{/* <Verses {...args}>
 				<VerseHeader>
 					<VerseTitle />
 					<VerseSubTitle />
@@ -144,14 +163,28 @@ export const VersesBox: Story = {
 					<VerseText />
 				</VerseBody>
 			</Verses>
-			<Verses verses={mockVerses} >
+			<Verses verses={mockVersesPsalm}>
 				<VerseHeader>
 					<VerseTitle />
 					<VerseSubTitle />
 				</VerseHeader>
 				<VerseBody>
 					<VerseNumber />
-					<VerseText />
+					<VerseText>
+						<VerseReference />
+					</VerseText>
+				</VerseBody>
+			</Verses> */}
+			<Verses verses={mockVerses}>
+				<VerseHeader>
+					<VerseTitle />
+					<VerseSubTitle />
+				</VerseHeader>
+				<VerseBody>
+					<VerseNumber />
+					<VerseText>
+						<VerseReference />
+					</VerseText>
 				</VerseBody>
 			</Verses>
 		</>
