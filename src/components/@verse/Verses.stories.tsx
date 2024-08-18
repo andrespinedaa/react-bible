@@ -2,67 +2,9 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { VerseBody, VerseNumber, VerseText } from "./verseBody";
 import { VerseHeader, VerseSubTitle, VerseTitle } from "./verseHeader";
 import Verses from "./Verses";
-import { paragraph } from "../../utilities";
-import VerseReference from "./verseReference/VerseReference";
+import { VerseReference } from "./verseReference";
 
 type VersesProps = React.ComponentProps<typeof Verses>;
-
-const mockVerses: paragraph[] = [
-	{
-		title: "Jesús y Lázaro",
-		verses: [
-			{
-				text: `Estaba entonces enfermo uno llamado Lázaro, de Betania, la aldea de María y de Marta su hermana.@`,
-				number: 1,
-				anchor: {
-					bookName: "Lucas",
-					chapterNumber: 10,
-					verses: [
-						{
-							number: 38,
-							text: "Aconteció que yendo de camino, entró en una aldea; y una mujer llamada Marta le recibió en su casa.",
-						},
-						{
-							number: 39,
-							text: "Esta tenía una hermana que se llamaba María,@ la cual, sentándose a los pies de Jesús, oía su palabra.",
-						},
-					],
-				},
-			},
-			{
-				text: "(María, cuyo hermano Lázaro estaba enfermo, fue la que ungió al Señor con perfume, y le enjugó los pies con sus cabellos.@)",
-				number: 2,
-				anchor: {
-					bookName: "Juan",
-					chapterNumber: 12,
-					verses: [
-						{
-							number: 3,
-							text: " Entonces María tomó una libra de perfume de nardo puro, de mucho precio, y ungió los pies de Jesús, y los enjugó con sus cabellos;@y la casa se llenó del olor del perfume.",
-						},
-					],
-				},
-			},
-		],
-	},
-];
-
-const mockVersesPsalm: paragraph[] = [
-	{
-		title: "Un grito de angustia y un canto de alabanza",
-		subTitle: "Al músico principal; sobre Ajelet-sahar. Salmo de David.",
-		verses: [
-			{
-				number: 1,
-				text: "Dios mío, Dios mío, ¿por qué me has desamparado?@\n Lejos de mi salvación están las palabras de mi rugido.",
-			},
-			{
-				number: 7,
-				text: "Todos los que me ven\n escarnecen;\n Estiran la boca, menean la cabeza, diciendo: @",
-			},
-		],
-	},
-];
 
 const meta: Meta<VersesProps> = {
 	title: "Verse/Verses",
@@ -153,29 +95,7 @@ export const VersesBox: Story = {
 	},
 	render: (args) => (
 		<>
-			{/* <Verses {...args}>
-				<VerseHeader>
-					<VerseTitle />
-					<VerseSubTitle />
-				</VerseHeader>
-				<VerseBody>
-					<VerseNumber />
-					<VerseText />
-				</VerseBody>
-			</Verses>
-			<Verses verses={mockVersesPsalm}>
-				<VerseHeader>
-					<VerseTitle />
-					<VerseSubTitle />
-				</VerseHeader>
-				<VerseBody>
-					<VerseNumber />
-					<VerseText>
-						<VerseReference />
-					</VerseText>
-				</VerseBody>
-			</Verses> */}
-			<Verses verses={mockVerses}>
+			<Verses {...args}>
 				<VerseHeader>
 					<VerseTitle />
 					<VerseSubTitle />
