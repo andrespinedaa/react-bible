@@ -1,12 +1,12 @@
 import React from "react";
 import { useBibleContext } from "../components/@contexts";
-import {
+import type {
   anchor,
   paragraph,
-  type book,
-  type chapter,
-  type testament,
-  type version,
+  book,
+  chapter,
+  testament,
+  version,
 } from "../utilities";
 
 type returnUseBible = {
@@ -34,6 +34,9 @@ export function useBible(): returnUseBible {
     setBook(bible.versions[0].testament[0].books[0]);
     setChapter(bible.versions[0].testament[0].books[0].chapters[0]);
     setVerses(bible.versions[0].testament[0].books[0].chapters[0].verses);
+    setReferences(
+      bible.versions[0].testament[0].books[0].chapters[0].versesAcross,
+    );
   }, [bible]);
 
   React.useEffect(() => {
