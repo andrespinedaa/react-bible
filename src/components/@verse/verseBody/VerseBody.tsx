@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 import { useVerseContext, VerseBodyProvider } from "../../@contexts";
 import { paragraph } from "../../../utilities";
 
-interface VerseBodyProps  {
+interface VerseBodyProps {
   verseSeparate?: boolean;
   paragraph?: paragraph;
   children?: React.ReactNode;
@@ -17,6 +17,7 @@ const StyledVerseBody = styled.span`
 const StyledParagraph = styled.p<{ $verseSeparate: boolean }>`
   display: ${(props) => (props.$verseSeparate ? "flex" : "inline")};
   flex-direction: column;
+  margin: 0;
 `;
 
 function VerseBody({
@@ -26,7 +27,7 @@ function VerseBody({
 }: VerseBodyProps) {
   const { paragraph: paragraphFromVerse } = useVerseContext();
   const innerParagraph = paragraph ?? paragraphFromVerse;
-  const refAt = React.useRef(0);
+  const refAt = React.useRef<number | undefined>(undefined);
 
   return (
     <StyledParagraph $verseSeparate={verseSeparate}>
