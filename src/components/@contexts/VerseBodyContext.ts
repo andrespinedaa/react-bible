@@ -3,6 +3,7 @@ import { verse } from "../../utilities";
 
 type VerseBodyContextType = {
   verse: verse;
+  refAt: React.MutableRefObject<number>;
 };
 
 export const [VerseBodyProvider, useVerseBodyContext] =
