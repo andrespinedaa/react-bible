@@ -14,13 +14,12 @@ export type cite = {
 export type anchor = {
   verses: verse[];
   bookName: string;
+  abrevBookName: string;
   chapterNumber: number;
 };
 export type verse = {
   text: string;
   number: number;
-  jesusWords?: boolean;
-  anchor?: anchor;
 };
 export type paragraph = {
   title?: string;
@@ -28,10 +27,9 @@ export type paragraph = {
   verses: verse[];
 };
 export type chapter = {
-  title: string;
   number: number;
   amountVerses: number;
-  versesAcross?: anchor[];
+  versesAcross: anchor[];
   verses: paragraph[];
 };
 export type book = {
