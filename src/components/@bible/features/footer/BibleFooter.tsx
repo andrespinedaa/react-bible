@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-interface BibleFooterProps {
+interface BibleFooterProps extends React.ComponentPropsWithRef<"footer"> {
   children?: React.ReactNode;
 }
 
@@ -11,8 +11,8 @@ const StyledBibleFooter = styled.footer`
   gap: "2.5%",
 `;
 
-function BibleFooter({ children }: BibleFooterProps) {
-  return <StyledBibleFooter>{children}</StyledBibleFooter>;
+function BibleFooter({ children, ...restProps }: BibleFooterProps) {
+  return <StyledBibleFooter {...restProps}>{children}</StyledBibleFooter>;
 }
 
 export default BibleFooter;

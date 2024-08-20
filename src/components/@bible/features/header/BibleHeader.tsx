@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-interface BibleHeaderProps {
+interface BibleHeaderProps extends React.ComponentPropsWithRef<"header"> {
   children?: React.ReactNode;
 }
 
@@ -11,8 +11,8 @@ const StyledBibleHeader = styled.header`
   padding: 8px;
 `;
 
-function BibleHeader({ children }: BibleHeaderProps) {
-  return <StyledBibleHeader>{children}</StyledBibleHeader>;
+function BibleHeader({ children, ...restProps }: BibleHeaderProps) {
+  return <StyledBibleHeader {...restProps}>{children}</StyledBibleHeader>;
 }
 
 export default BibleHeader;

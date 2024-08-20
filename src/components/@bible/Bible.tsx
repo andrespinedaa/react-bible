@@ -5,7 +5,7 @@ import { BibleProvider } from "../@contexts";
 import { sizes } from "../@theme";
 import { BibleBody, BibleFooter, BibleHeader } from "./features";
 
-export interface BibleProps {
+export interface BibleProps extends React.ComponentPropsWithRef<"div"> {
   bible: bible;
   children: React.ReactNode;
   size?: sizes;
@@ -28,10 +28,17 @@ const StyledBible = styled.div<{ $size?: sizes }>`
   font-family: ${(props) => props.theme.bibleFonts.primary};
 `;
 
-function Bible({ bible, children, size = undefined }: BibleProps) {
+function Bible({
+  bible,
+  children,
+  size = undefined,
+  ...restProps
+}: BibleProps) {
   return (
     <BibleProvider value={{ bible }}>
-      <StyledBible $size={`${size}`}>{children}</StyledBible>
+      <StyledBible $size={`${size}`} {...restProps}>
+        {children}
+      </StyledBible>
     </BibleProvider>
   );
 }

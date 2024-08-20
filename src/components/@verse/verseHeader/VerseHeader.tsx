@@ -1,14 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import { useVerseContext } from "../../@contexts";
-import VerseSubTitle from "./VerseSubTitle";
-import VerseTitle from "./VerseTitle";
 
-interface VerseHeaderProps {
-  children:
-    | React.ReactElement<typeof VerseTitle>
-    | React.ReactElement<typeof VerseSubTitle>
-    | React.ReactElement<typeof VerseTitle | typeof VerseSubTitle>[];
+interface VerseHeaderProps extends React.ComponentPropsWithRef<"div"> {
+  children: React.ReactNode;
 }
 
 const StyledVerseHeader = styled.div`
@@ -17,16 +12,16 @@ const StyledVerseHeader = styled.div`
   gap: ${(props) => props.theme.bibleVerses.spaceBetweenTitleAndSubTitle};
 `;
 
-function VerseHeader({ children }: VerseHeaderProps) {
+function VerseHeader({ children, ...restProps }: VerseHeaderProps) {
   const { subTitle, title } = useVerseContext();
   if (!title && !subTitle) return null;
   if (title && !subTitle) return children;
-  return <StyledVerseHeader>{children}</StyledVerseHeader>;
+  return <StyledVerseHeader {...restProps}>{children}</StyledVerseHeader>;
 }
 
 export default VerseHeader;
 
-/* 
+/*
 React.Children.map(children, (child) => {
     return React.isValidElement(child) && child.type === VerseTitle
       ? React.cloneElement(child, {

@@ -1,9 +1,9 @@
+import React from "react";
 import styled from "styled-components";
+import { v4 as uuidv4 } from "uuid";
 import { useBible } from "../../../hooks/useBible";
-import { useSafeId } from "../../../hooks/useSafeId";
-import { Cite } from "../../@cite";
 
-interface VerseAcrossProps {
+interface VerseAcrossProps extends React.ComponentPropsWithRef<"ul"> {
   listType?:
     | "lower-alpha"
     | "lower-roman"
@@ -29,23 +29,20 @@ const StyledVerseAcross = styled.ul<{
   list-style-type: ${(props) => props.$listType};
 `;
 
-function VerseAcross({ listType = "lower-alpha" }: VerseAcrossProps) {
+function VerseAcross({
+  listType = "lower-alpha",
+  ...restProps
+}: VerseAcrossProps) {
   const {
-    chapter: { AcrossVerses = [] },
+    chapter: { versesAcross = [] },
   } = useBible();
-  const uniquedId = useSafeId();
 
   return (
-    <StyledVerseAcross $listType={`${listType}`}>
-      {AcrossVerses.map((verse) => {
+    <StyledVerseAcross $listType={`${listType}`} {...restProps}>
+      {versesAcross.map((verse) => {
         return (
-          <li key={uniquedId}>
-            <Cite
-              key={
-                verse.bookName + verse.chapterNumber + verse.verseNumberStart
-              }
-              {...verse}
-            />
+          <li key={uuidv4()}>
+            {verse.bookName} {verse.chapterNumber}
           </li>
         );
       })}

@@ -5,7 +5,7 @@ import { useBible } from "../../hooks/useBible";
 import { paragraph } from "../../utilities";
 import { VerseProvider, VersesProvider } from "../@contexts";
 
-export interface VersesProps {
+export interface VersesProps extends React.ComponentPropsWithRef<"div"> {
   firstNumberBig?: boolean;
   firstNumber?: "chapter" | "verse" | "chapterAndVerse";
   alignText?: "center" | "left" | "right";
@@ -36,6 +36,7 @@ function Verses({
   separateVerses = true,
   psalmStyle = true,
   children,
+  ...restProps
 }: VersesProps) {
   const { verses: versesFromBible } = useBible();
   const innerVerses = verses ?? versesFromBible;
@@ -49,7 +50,11 @@ function Verses({
         psalmStyle,
       }}
     >
-      <StyledVerses $alignText={alignText} $separateVerses={separateVerses}>
+      <StyledVerses
+        $alignText={alignText}
+        $separateVerses={separateVerses}
+        {...restProps}
+      >
         {innerVerses.map((paragraph) => {
           return (
             <VerseProvider

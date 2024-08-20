@@ -1,10 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import { BodyProvider } from "../../../@contexts";
-import { Verses } from "../../../@verse";
 
-interface BibleBodyProps {
-  children: React.ReactElement<typeof Verses>[] | React.ReactElement<typeof Verses>;
+interface BibleBodyProps extends React.ComponentPropsWithRef<"div"> {
+  children?: React.ReactNode;
 }
 
 const StyledBidleBody = styled.div`
@@ -14,10 +13,10 @@ const StyledBidleBody = styled.div`
   overflow: auto;
 `;
 
-function BibleBody({ children }: BibleBodyProps) {
+function BibleBody({ children, ...restProps }: BibleBodyProps) {
   return (
     <BodyProvider value={{}}>
-      <StyledBidleBody>{children}</StyledBidleBody>
+      <StyledBidleBody {...restProps}>{children}</StyledBidleBody>
     </BodyProvider>
   );
 }

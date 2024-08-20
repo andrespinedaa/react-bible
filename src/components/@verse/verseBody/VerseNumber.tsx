@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useVerseBodyContext, useVersesContext } from "../../@contexts";
 
-interface VerseNumberProps {
+interface VerseNumberProps extends React.ComponentPropsWithRef<"span"> {
   numberStyle?: "bold" | "italic" | "boldAndItalic" | "normal";
   numberType?: "sub" | "sup" | "span";
   numberBig?: boolean;
@@ -35,6 +35,7 @@ function VerseNumber({
   numberStyle = "normal",
   numberBig = false,
   number = undefined,
+  ...restProps
 }: VerseNumberProps) {
   const { firstNumberBig } = useVersesContext();
   const { verse } = useVerseBodyContext();
@@ -47,6 +48,7 @@ function VerseNumber({
       $numberStyle={`${numberStyle}`}
       $numberBig={innerNumberBig}
       $number={innerNumber}
+      {...restProps}
     >
       {innerNumber}
     </StyledVerseNumber>

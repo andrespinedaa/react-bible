@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 import { useVerseContext, VerseBodyProvider } from "../../@contexts";
 import { paragraph } from "../../../utilities";
 
-interface VerseBodyProps {
+interface VerseBodyProps  {
   verseSeparate?: boolean;
   paragraph?: paragraph;
   children?: React.ReactNode;
