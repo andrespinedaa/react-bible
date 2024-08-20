@@ -20,16 +20,3 @@ function VerseHeader({ children, ...restProps }: VerseHeaderProps) {
 }
 
 export default VerseHeader;
-
-/*
-React.Children.map(children, (child) => {
-    return React.isValidElement(child) && child.type === VerseTitle
-      ? React.cloneElement(child, {
-          title: verse.title,
-        } as React.ComponentProps<typeof VerseTitle>)
-      : child.type === VerseSubTitle &&
-          React.cloneElement(child, {
-            subTitle: verse.subTitle,
-          } as React.ComponentProps<typeof VerseSubTitle>);
-  })
-*/
