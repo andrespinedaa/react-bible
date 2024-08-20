@@ -10,16 +10,16 @@ export interface VersesProps extends React.ComponentPropsWithRef<"div"> {
   firstNumber?: "chapter" | "verse" | "chapterAndVerse";
   alignText?: "center" | "left" | "right";
   verses?: paragraph[];
-  separateVerses?: boolean;
+  separateParagraphs?: boolean;
   psalmStyle?: boolean;
   children: React.ReactNode;
 }
 
 const StyledVerses = styled.div<{
   $alignText?: "center" | "left" | "right";
-  $separateVerses?: boolean;
+  $separateParagraphs?: boolean;
 }>`
-  display: ${(props) => (props.$separateVerses ? "flex" : "inline")};
+  display: ${(props) => (props.$separateParagraphs ? "flex" : "inline")};
   flex-direction: column;
   flex-wrap: wrap;
   font-size: ${(props) =>
@@ -33,7 +33,7 @@ function Verses({
   firstNumberBig = true,
   firstNumber = "chapter",
   alignText = "left",
-  separateVerses = true,
+  separateParagraphs = true,
   psalmStyle = true,
   children,
   ...restProps
@@ -52,7 +52,7 @@ function Verses({
     >
       <StyledVerses
         $alignText={alignText}
-        $separateVerses={separateVerses}
+        $separateParagraphs={separateParagraphs}
         {...restProps}
       >
         {innerVerses.map((paragraph) => {
