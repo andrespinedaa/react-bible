@@ -4,33 +4,30 @@ import { v4 as uuidv4 } from "uuid";
 import { useVerseBodyContext, useVersesContext } from "../../@contexts";
 import VerseReference from "../verseReference/VerseReference";
 
-/* HACER UN REGEX PARA CAPTURAR LAS PALARBAS DE JESUS */
-
 interface VerseTextProps {
 	text?: string;
-	jesusWords?: boolean;
 	children?: React.ReactElement<typeof VerseReference>;
 }
 
 function VerseText({ text = undefined, children }: VerseTextProps) {
-	const { psalmStyle } = useVersesContext();
+	const { psalmStyle = true } = useVersesContext();
 	const { verse } = useVerseBodyContext();
 	const innerText = text ?? verse.text;
 
 	if (!innerText.includes("\n") && !innerText.includes("@")) return innerText;
 
-	return _.map(_.split(verse.text, "\n"), (jumpLine, _index2, partList) => {
+	return _.map(_.split(innerText, "\n"), (lineBreak, idxLineBreak, lineaBreaks) => {
 		return (
 			<React.Fragment key={uuidv4()}>
-				{_.map(_.split(jumpLine, "@"), (lineAt, index, partsLineAt) => {
+				{_.map(_.split(lineBreak, "@"), (lineAt, idxLineAt, lineAtList) => {
 					return (
 						<React.Fragment key={uuidv4()}>
 							{lineAt}
-							{index < partsLineAt.length - 1 && children}
+							{idxLineAt < lineAtList.length - 1 && children}
 						</React.Fragment>
 					);
 				})}
-				{partList.length > 1 && psalmStyle && <br />}
+				{idxLineBreak < lineaBreaks.length - 1 && psalmStyle && <br />}
 			</React.Fragment>
 		);
 	});
