@@ -7,10 +7,10 @@ import { VerseProvider, VersesProvider } from "../@contexts";
 
 export interface VersesProps extends React.ComponentPropsWithRef<"div"> {
   firstNumberBig?: boolean;
-  firstNumber?: "chapter" | "verse" | "chapterAndVerse";
   alignText?: "center" | "left" | "right";
-  verses?: paragraph[];
+  paragraphs?: paragraph[];
   separateParagraphs?: boolean;
+  separateVerses?: boolean;
   psalmStyle?: boolean;
   children: React.ReactNode;
 }
@@ -29,48 +29,48 @@ const StyledVerses = styled.div<{
 `;
 
 function Verses({
-  verses = undefined,
+  paragraphs = undefined,
   firstNumberBig = true,
-  firstNumber = "chapter",
   alignText = "left",
   separateParagraphs = true,
+  separateVerses = false,
   psalmStyle = true,
   children,
   ...restProps
 }: VersesProps) {
-  const { verses: versesFromBible } = useBible();
-  const innerVerses = verses ?? versesFromBible;
+  const { paragraphs: paragraphsAPI } = useBible();
+  const innerParagraphs = paragraphs ?? paragraphsAPI;
 
   return (
-    <VersesProvider
-      value={{
-        alignText,
-        firstNumber,
-        firstNumberBig,
-        psalmStyle,
-      }}
+    <StyledVerses
+      $alignText={alignText}
+      $separateParagraphs={separateParagraphs}
+      {...restProps}
     >
-      <StyledVerses
-        $alignText={alignText}
-        $separateParagraphs={separateParagraphs}
-        {...restProps}
+      <VersesProvider
+        value={{
+          alignText,
+          firstNumberBig,
+          psalmStyle,
+          separateVerses,
+        }}
       >
-        {innerVerses.map((paragraph) => {
+        {innerParagraphs.map((paragraph) => {
           return (
             <VerseProvider
+              key={uuidv4()}
               value={{
                 paragraph,
                 subTitle: paragraph.subTitle,
                 title: paragraph.title,
               }}
-              key={uuidv4()}
             >
               {children}
             </VerseProvider>
           );
         })}
-      </StyledVerses>
-    </VersesProvider>
+      </VersesProvider>
+    </StyledVerses>
   );
 }
 
