@@ -1,17 +1,20 @@
 import React from "react";
 import styled from "styled-components";
 import { v4 as uuidv4 } from "uuid";
-import { useVerseContext, VerseBodyProvider } from "../../@contexts";
-import { paragraph } from "../../../utilities";
+import {
+  useVerseContext,
+  useVersesContext,
+  VerseBodyProvider,
+} from "../../@contexts";
 
-interface VerseBodyProps {
-  verseSeparate?: boolean;
-  paragraph?: paragraph;
+interface VerseBodyProps extends React.ComponentPropsWithRef<"p"> {
   children?: React.ReactNode;
 }
 
-const StyledVerseBody = styled.span`
+const StyledVerseBody = styled.span<{ $psalmStyle?: boolean }>`
   display: inline;
+  position: ${(props) => (props.$psalmStyle ? "relative" : "static")};
+  margin-left: ${(props) => (props.$psalmStyle ? "1rem" : "0")};
 `;
 
 const StyledParagraph = styled.p<{ $verseSeparate: boolean }>`
@@ -20,22 +23,19 @@ const StyledParagraph = styled.p<{ $verseSeparate: boolean }>`
   margin: 0;
 `;
 
-function VerseBody({
-  children,
-  verseSeparate = false,
-  paragraph = undefined,
-}: VerseBodyProps) {
-  const { paragraph: paragraphFromVerse } = useVerseContext();
-  const innerParagraph = paragraph ?? paragraphFromVerse;
-  const refAt = React.useRef<number | undefined>(undefined);
+function VerseBody({ children, ...restProps }: VerseBodyProps) {
+  const { paragraph } = useVerseContext();
+  const { separateVerses = false } = useVersesContext();
 
   return (
-    <StyledParagraph $verseSeparate={verseSeparate}>
-      {innerParagraph.verses.map((verse) => {
+    <StyledParagraph $verseSeparate={separateVerses} {...restProps}>
+      {paragraph.verses.map((verse) => {
         return (
-          <VerseBodyProvider value={{ verse, refAt }} key={uuidv4()}>
-            <StyledVerseBody>{children}</StyledVerseBody>
-          </VerseBodyProvider>
+          <StyledVerseBody key={uuidv4()}>
+            <VerseBodyProvider value={{ verse }}>
+              {children}
+            </VerseBodyProvider>
+          </StyledVerseBody>
         );
       })}
     </StyledParagraph>
