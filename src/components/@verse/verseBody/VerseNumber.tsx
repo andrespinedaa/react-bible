@@ -6,6 +6,7 @@ interface VerseNumberProps extends React.ComponentPropsWithRef<"span"> {
   numberType?: "sub" | "sup" | "span";
   numberBig?: boolean;
   number?: number;
+  children?: React.ReactNode;
 }
 
 const StyledVerseNumber = styled.span<{
@@ -35,23 +36,27 @@ function VerseNumber({
   numberStyle = "normal",
   numberBig = false,
   number = undefined,
+  children,
   ...restProps
 }: VerseNumberProps) {
   const { firstNumberBig } = useVersesContext();
   const { verse } = useVerseBodyContext();
-  const innerNumber = verse.number ?? number;
-  const innerNumberBig = numberBig ?? firstNumberBig;
+  const innerNumber = number ?? verse.number;
+  const innerNumberBig = numberBig || firstNumberBig;
 
   return (
-    <StyledVerseNumber
-      as={numberType}
-      $numberStyle={`${numberStyle}`}
-      $numberBig={innerNumberBig}
-      $number={innerNumber}
-      {...restProps}
-    >
-      {innerNumber}
-    </StyledVerseNumber>
+    <>
+      {innerNumber === 1 && children}
+      <StyledVerseNumber
+        as={numberType}
+        $numberStyle={`${numberStyle}`}
+        $numberBig={innerNumberBig}
+        $number={innerNumber}
+        {...restProps}
+      >
+        {innerNumber}
+      </StyledVerseNumber>
+    </>
   );
 }
 
