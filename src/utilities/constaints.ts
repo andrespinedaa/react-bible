@@ -93,6 +93,8 @@ export const bibleMock: bible = {
               testament: "NT",
               chapters: [
                 {
+                  number: 11,
+                  amountVerses: 57,
                   versesAcross: [
                     {
                       bookName: "Lucas",
@@ -121,9 +123,7 @@ export const bibleMock: bible = {
                       ],
                     },
                   ],
-                  number: 11,
-                  amountVerses: 57,
-                  verses: [
+                  paragraphs: [
                     {
                       title: "Muerte de Lázaro",
                       verses: [

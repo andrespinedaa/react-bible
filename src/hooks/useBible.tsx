@@ -14,9 +14,8 @@ type returnUseBible = {
   testament: testament;
   book: book;
   chapter: chapter;
-  verses: paragraph[];
+  paragraphs: paragraph[];
   references: anchor[];
-  setReferences: React.Dispatch<React.SetStateAction<anchor[]>>;
 };
 
 export function useBible(): returnUseBible {
@@ -25,7 +24,7 @@ export function useBible(): returnUseBible {
   const [testament, setTestament] = React.useState<testament>({} as testament);
   const [book, setBook] = React.useState<book>({} as book);
   const [chapter, setChapter] = React.useState<chapter>({} as chapter);
-  const [verses, setVerses] = React.useState<paragraph[]>([]);
+  const [paragraphs, setParagraphs] = React.useState<paragraph[]>([]);
   const [references, setReferences] = React.useState<anchor[]>([]);
 
   const setter = React.useCallback(() => {
@@ -33,7 +32,9 @@ export function useBible(): returnUseBible {
     setTestament(bible.versions[0].testament[0]);
     setBook(bible.versions[0].testament[0].books[0]);
     setChapter(bible.versions[0].testament[0].books[0].chapters[0]);
-    setVerses(bible.versions[0].testament[0].books[0].chapters[0].verses);
+    setParagraphs(
+      bible.versions[0].testament[0].books[0].chapters[0].paragraphs,
+    );
     setReferences(
       bible.versions[0].testament[0].books[0].chapters[0].versesAcross,
     );
@@ -49,8 +50,7 @@ export function useBible(): returnUseBible {
     book,
     chapter,
     testament,
-    verses,
+    paragraphs,
     references,
-    setReferences,
   };
 }
