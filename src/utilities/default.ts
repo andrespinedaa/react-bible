@@ -30,7 +30,7 @@ export type chapter = {
   number: number;
   amountVerses: number;
   versesAcross: anchor[];
-  verses: paragraph[];
+  paragraphs: paragraph[];
 };
 export type book = {
   abrev: string;
