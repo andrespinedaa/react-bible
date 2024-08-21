@@ -4,12 +4,15 @@ import {
   VerseBody,
   VerseHeader,
   VerseNumber,
+  VerseReference,
   VerseSubTitle,
   VerseText,
   VerseTitle,
 } from "../@verse";
+import Verse from "../@verse/Verse";
 import Verses from "../@verse/Verses";
 import Bible from "./Bible";
+import ChapterNumber from "../@chapters/ChapterNumber";
 
 type BibleProps = React.ComponentProps<typeof Bible>;
 
@@ -55,21 +58,21 @@ export const BibleBox: Story = {
     <Bible {...args}>
       <Bible.BibleHeader />
       <Bible.BibleBody>
-        <Verses> 
-          <VerseHeader>
-            <VerseTitle />
-            <VerseSubTitle />
-          </VerseHeader>
-          <VerseBody>
-            <VerseNumber />
-            <VerseText />
-          </VerseBody>
-        </Verses>
         <Verses>
-          <VerseBody>
-            <VerseNumber />
-            <VerseText />
-          </VerseBody>
+          <Verse>
+            <VerseHeader>
+              <VerseTitle />
+              <VerseSubTitle />
+            </VerseHeader>
+            <VerseBody>
+              <VerseNumber>
+                <ChapterNumber />
+              </VerseNumber>
+              <VerseText>
+                <VerseReference />
+              </VerseText>
+            </VerseBody>
+          </Verse>
         </Verses>
       </Bible.BibleBody>
       <Bible.BibleFooter />
