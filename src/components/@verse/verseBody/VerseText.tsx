@@ -1,7 +1,8 @@
 import _ from "lodash";
 import React from "react";
 import { v4 as uuidv4 } from "uuid";
-import { useVerseBodyContext, useVersesContext } from "../../@contexts";
+import { useVersesContext } from "../../@contexts";
+import { useOptionalVerseBodyContext } from "../../@contexts/VerseBodyContext"; // Import the VerseBodyContextType
 
 interface VerseTextProps {
   text?: string;
@@ -9,11 +10,11 @@ interface VerseTextProps {
 }
 
 function VerseText({ text = undefined, children }: VerseTextProps) {
-	const { psalmStyle = true } = useVersesContext();
-	const { verse } = useVerseBodyContext();
-	const innerText = text ?? verse.text;
+  const { psalmStyle = true } = useVersesContext();
+  const verseOptional = useOptionalVerseBodyContext();
+  const innerText = text ?? verseOptional?.verse.text ?? "Text not found";
 
-	if (!innerText.includes("\n") && !innerText.includes("@")) return innerText;
+  if (!innerText.includes("\n") && !innerText.includes("@")) return innerText;
 
   return _.map(
     _.split(innerText, "\n"),

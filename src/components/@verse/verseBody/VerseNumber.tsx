@@ -1,19 +1,24 @@
 import styled from "styled-components";
-import { useVerseBodyContext, useVersesContext } from "../../@contexts";
+import {
+  useOptionalVerseBodyContext
+} from "../../@contexts";
 
 interface VerseNumberProps extends React.ComponentPropsWithRef<"span"> {
   numberStyle?: "bold" | "italic" | "boldAndItalic" | "normal";
   numberType?: "sub" | "sup" | "span";
-  numberBig?: boolean;
+  firstNumberBig?: boolean;
   number?: number;
   children?: React.ReactNode;
 }
 
 const StyledVerseNumber = styled.span<{
   $numberStyle?: "bold" | "italic" | "boldAndItalic" | "normal";
-  $numberBig?: boolean;
+  $firstNumberBig?: boolean;
   $number?: number;
+  $psalmStyle?: boolean;
 }>`
+  position: ${(props) => (props.$psalmStyle ? "absolute" : "static")};
+  left: ${(props) => (props.$psalmStyle ? "-25px" : "auto")};
   font-style: ${(props) =>
     props.$numberStyle === "boldAndItalic"
       ? "italic"
@@ -27,22 +32,20 @@ const StyledVerseNumber = styled.span<{
         ? "bold"
         : "normal"};
   font-size: ${(props) =>
-    props.$number === 1 ? (props.$numberBig ? "2rem" : "1rem") : "1rem"};
+    props.$number === 1 ? (props.$firstNumberBig ? "2rem" : "1rem") : "1rem"};
   margin: 0 ${(props) => props.theme.bibleVerses.spaceBetweenVerseAndNumber};
 `;
 
 function VerseNumber({
-  numberType = "span",
+  firstNumberBig = false,
   numberStyle = "normal",
-  numberBig = false,
+  numberType = "span",
   number = undefined,
   children,
   ...restProps
 }: VerseNumberProps) {
-  const { firstNumberBig } = useVersesContext();
-  const { verse } = useVerseBodyContext();
-  const innerNumber = number ?? verse.number;
-  const innerNumberBig = numberBig || firstNumberBig;
+  const verseOptional = useOptionalVerseBodyContext();
+  const innerNumber = number ?? verseOptional?.verse.number ?? 0;
 
   return (
     <>
@@ -50,7 +53,7 @@ function VerseNumber({
       <StyledVerseNumber
         as={numberType}
         $numberStyle={`${numberStyle}`}
-        $numberBig={innerNumberBig}
+        $firstNumberBig={firstNumberBig}
         $number={innerNumber}
         {...restProps}
       >

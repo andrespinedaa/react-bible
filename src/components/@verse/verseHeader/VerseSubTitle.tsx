@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useVerseContext } from "../../@contexts";
+import { useOptionalVerseContext, useVerseContext } from "../../@contexts";
 
 export interface VerseSubTitleProps extends React.ComponentPropsWithRef<"h4"> {
   subTitleType?: "h4" | "h5" | "h6";
@@ -21,8 +21,8 @@ function VerseSubTitle({
   subTitleFormat = "none",
   ...restProps
 }: VerseSubTitleProps) {
-  const { subTitle: subTitleFromVerse } = useVerseContext();
-  const innerSubTitle = subTitle || subTitleFromVerse;
+  const subTitleFromVerse = useOptionalVerseContext();
+  const innerSubTitle = subTitle ?? subTitleFromVerse?.subTitle;
 
   if (!innerSubTitle) return null;
 

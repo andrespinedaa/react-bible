@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useVerseContext } from "../../@contexts";
+import { useOptionalVerseContext, useVerseContext } from "../../@contexts";
 
 export interface VerseTitleProps extends React.ComponentPropsWithRef<"h1"> {
   titleFormat?: "uppercase" | "lowercase" | "capitalize" | "none";
@@ -20,8 +20,8 @@ function VerseTitle({
   titleFormat = "none",
   ...restProps
 }: VerseTitleProps) {
-  const { title: titleFromVerse } = useVerseContext();
-  const innerTitle = title ?? titleFromVerse;
+  const titleFromVerse = useOptionalVerseContext();
+  const innerTitle = title ?? titleFromVerse?.title;
 
   if (!innerTitle) return null;
 
