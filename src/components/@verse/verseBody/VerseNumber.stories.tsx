@@ -1,6 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import VerseNumber from "./VerseNumber";
 import VerseBody from "./VerseBody";
+import Verses from "../Verses";
+import Verse from "../Verse";
+import VerseText from "./VerseText";
 
 type VerseNumberProps = React.ComponentProps<typeof VerseNumber>;
 
@@ -22,10 +25,15 @@ const meta: Meta<VerseNumberProps> = {
       options: ["bold", "italic", "boldAndItalic", "normal"],
       description: "The style of the number",
     },
-    numberBig: {
+    firstNumberBig: {
       control: "boolean",
-      description:
-        "Whether to make the number big only if the number is the first (1) in the paragraph",
+      description: "If the first number should be bigger",
+    },
+    children: {
+      control: {
+        disable: true,
+      },
+      description: "The children of the component",
     },
   },
 };
@@ -34,13 +42,33 @@ export default meta;
 
 type Story = StoryObj<VerseNumberProps>;
 
-export const VerseNumberBox: Story = {
-  name: "Verse Number",
+export const VerseNumberIsolated: Story = {
+  name: "VerseNumber Isolated",
   args: {
     numberType: "span",
     numberStyle: "normal",
-    numberBig: false,
+    firstNumberBig: true,
     number: 1,
   },
   render: (args) => <VerseNumber {...args} />,
+};
+
+export const VerseNumberIntegreated: Story = {
+  name: "VerseNumber Integrated",
+  args: {
+    numberType: "span",
+    numberStyle: "normal",
+    firstNumberBig: true,
+    number: undefined,
+  },
+  render: (args) => (
+    <Verses>
+      <Verse>
+        <VerseBody>
+          <VerseNumber {...args}/>
+          <VerseText />
+        </VerseBody>
+      </Verse>
+    </Verses>
+  ),
 };

@@ -1,6 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { ComponentProps } from "react";
 import VerseText from "./VerseText";
+import Verses from "../Verses";
+import Verse from "../Verse";
+import VerseBody from "./VerseBody";
 
 type VerseTextProps = ComponentProps<typeof VerseText>;
 
@@ -19,10 +22,23 @@ export default meta;
 
 type Story = StoryObj<VerseTextProps>;
 
-export const VerseTextBox: Story = {
-  name: "Verse Text",
+export const VerseTextIsolated: Story = {
+  name: "VerseText Isolated",
   args: {
-    text: "Bienaventurado el jvarón que no anduvo en consejo de malos,\nni estuvo en j camino de pecadores,\nni en silla de escarnecedores se ha sentado;",
+    text: "Bienaventurado el varón que no anduvo en consejo de malos,\nni estuvo en camino de pecadores,\nni en silla de escarnecedores se ha sentado;",
   },
   render: (args) => <VerseText {...args} />,
+};
+
+export const VerseTextIntegreated: Story = {
+  name: "VerseText Integrated",
+  render: () => (
+    <Verses>
+      <Verse>
+        <VerseBody>
+          <VerseText />
+        </VerseBody>
+      </Verse>
+    </Verses>
+  ),
 };

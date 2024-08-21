@@ -1,6 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import VerseTitle from "./VerseTitle";
-import { VerseBody } from "../verseBody";
+import { VerseBody, VerseNumber, VerseText } from "../verseBody";
+import Verses from "../Verses";
+import Verse from "../Verse";
+import VerseHeader from "./VerseHeader";
 
 type VerseTitleProps = React.ComponentProps<typeof VerseTitle>;
 
@@ -30,16 +33,45 @@ export default meta;
 
 type Story = StoryObj<VerseTitleProps>;
 
-export const VerseTitleBox: Story = {
-  name: "Verse Title",
+export const VerseTitleIsolated: Story = {
+  name: "VerseTitle Isolated",
   args: {
     titleType: "h3",
     titleFormat: "none",
-    title: "",
+    title: "Title of the verse",
+  },
+  render: (args) => <VerseTitle {...args} />,
+};
+
+export const VerseTitleIntegrated: Story = {
+  name: "VerseTitle Integrated",
+  args: {
+    titleType: "h3",
+    titleFormat: "none",
   },
   render: (args) => (
-    <VerseBody>
-      <VerseTitle {...args} />
-    </VerseBody>
+    <Verses
+      paragraphs={[
+        {
+          title: "La creación",
+          verses: [
+            {
+              number: 1,
+              text: "En el principio creó Dios los cielos y la tierra. ",
+            },
+          ],
+        },
+      ]}
+    >
+      <Verse>
+        <VerseHeader>
+          <VerseTitle {...args} />
+        </VerseHeader>
+        <VerseBody>
+          <VerseNumber />
+          <VerseText />
+        </VerseBody>
+      </Verse>
+    </Verses>
   ),
 };
