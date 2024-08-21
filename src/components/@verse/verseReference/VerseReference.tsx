@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useVerseBodyContext } from "../../@contexts";
+import { useVerseBodyContext, useVerseContext } from "../../@contexts";
 
 interface VerseReferenceProps {
   referenceFormat?: "uppercase" | "lowercase";
@@ -42,7 +42,7 @@ function VerseReference({
   hookTagsType = "parenthesis",
   hookType = "span",
 }: VerseReferenceProps) {
-  const { refAt } = useVerseBodyContext();
+  const { refAt } = useVerseContext();
   if (refAt.current === undefined) {
     refAt.current = 0;
   } else {
