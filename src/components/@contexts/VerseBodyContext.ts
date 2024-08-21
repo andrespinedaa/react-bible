@@ -3,8 +3,7 @@ import { verse } from "../../utilities";
 
 type VerseBodyContextType = {
   verse: verse;
-  refAt: React.MutableRefObject<number | undefined>;
 };
 
-export const [VerseBodyProvider, useVerseBodyContext] =
+export const [VerseBodyProvider, useVerseBodyContext, useOptionalVerseBodyContext] =
   useCreateSafeContext<VerseBodyContextType>("VerseBodyContext not !!FOUND!!");
