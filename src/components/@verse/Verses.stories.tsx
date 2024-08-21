@@ -1,8 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import Verse from "./Verse";
 import { VerseBody, VerseNumber, VerseText } from "./verseBody";
 import { VerseHeader, VerseSubTitle, VerseTitle } from "./verseHeader";
-import Verses from "./Verses";
 import { VerseReference } from "./verseReference";
+import Verses from "./Verses";
 
 type VersesProps = React.ComponentProps<typeof Verses>;
 
@@ -14,10 +15,6 @@ const meta: Meta<VersesProps> = {
       control: "select",
       options: ["left", "center", "right"],
       description: "Align text",
-    },
-    firstNumberBig: {
-      control: "boolean",
-      description: "Make the first number big",
     },
     separateVerses: {
       control: "boolean",
@@ -52,13 +49,13 @@ export const VersesNormal: Story = {
   name: "Verses Normal",
   args: {
     alignText: "left",
-    firstNumberBig: true,
     separateParagraphs: true,
     separateVerses: false,
     psalmStyle: true,
   },
   render: (args) => (
-      <Verses {...args}>
+    <Verses {...args}>
+      <Verse>
         <VerseHeader>
           <VerseTitle />
           <VerseSubTitle />
@@ -69,7 +66,8 @@ export const VersesNormal: Story = {
             <VerseReference />
           </VerseText>
         </VerseBody>
-      </Verses>
+      </Verse>
+    </Verses>
   ),
 };
 
@@ -77,9 +75,8 @@ export const VersesPsalm: Story = {
   name: "Verses Psalm",
   args: {
     alignText: "left",
-    firstNumberBig: true,
     separateParagraphs: true,
-    separateVerses: false,
+    separateVerses: true,
     psalmStyle: true,
     paragraphs: [
       {
@@ -119,16 +116,18 @@ export const VersesPsalm: Story = {
   },
   render: (args) => (
     <Verses {...args}>
-      <VerseHeader>
-        <VerseTitle />
-        <VerseSubTitle />
-      </VerseHeader>
-      <VerseBody>
-        <VerseNumber />
-        <VerseText>
-          <VerseReference />
-        </VerseText>
-      </VerseBody>
+      <Verse>
+        <VerseHeader>
+          <VerseTitle />
+          <VerseSubTitle />
+        </VerseHeader>
+        <VerseBody>
+          <VerseNumber />
+          <VerseText>
+            <VerseReference />
+          </VerseText>
+        </VerseBody>
+      </Verse>
     </Verses>
   ),
 };
