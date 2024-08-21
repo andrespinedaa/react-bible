@@ -1,11 +1,6 @@
 import type { Preview } from "@storybook/react";
 import React from "react";
-import {
-  BibleProvider,
-  BibleTheme,
-  VerseProvider,
-  VersesProvider,
-} from "../src/components/@contexts";
+import { BibleProvider, BibleTheme } from "../src/components/@contexts";
 import { bibleMock, themeMock } from "../src/utilities/constaints";
 
 const preview: Preview = {
@@ -28,31 +23,6 @@ const preview: Preview = {
             <Story />
           </BibleProvider>
         </BibleTheme>
-      );
-    },
-    (Story) => {
-      return (
-        <VersesProvider
-          value={{
-            alignText: "left",
-            firstNumber: "chapter",
-            firstNumberBig: true,
-          }}
-        >
-          <VerseProvider
-            value={{
-              paragraph: {
-                title: "",
-                subTitle: "",
-                verses: [],
-              },
-              subTitle: "",
-              title: "",
-            }}
-          >
-            <Story />
-          </VerseProvider>
-        </VersesProvider>
       );
     },
   ],
