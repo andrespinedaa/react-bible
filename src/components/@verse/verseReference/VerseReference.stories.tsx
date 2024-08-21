@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import VerseReference from "./VerseReference";
 import { VerseBody, VerseNumber, VerseText } from "../verseBody";
 import Verses from "../Verses";
+import Verse from "../Verse";
 
 type VerseReferenceProps = React.ComponentProps<typeof VerseReference>;
 
@@ -52,7 +53,7 @@ export const VerseReferenceBox: Story = {
   },
   render: (args) => (
     <Verses
-      verses={[
+      paragraphs={[
         {
           verses: [
             {
@@ -67,12 +68,14 @@ export const VerseReferenceBox: Story = {
         },
       ]}
     >
-      <VerseBody>
-        <VerseNumber />
-        <VerseText>
-          <VerseReference {...args} />
-        </VerseText>
-      </VerseBody>
+      <Verse>
+        <VerseBody>
+          <VerseNumber />
+          <VerseText>
+            <VerseReference {...args} />
+          </VerseText>
+        </VerseBody>
+      </Verse>
     </Verses>
   ),
 };
