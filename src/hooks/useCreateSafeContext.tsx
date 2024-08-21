@@ -3,6 +3,11 @@ import React from "react";
 export function useCreateSafeContext<ContextValue>(errorMessage: string) {
   const Context = React.createContext<ContextValue | null>(null);
 
+  const useOptionalContext = () => {
+    const ctx = React.useContext(Context);
+    return ctx;
+  };
+
   const useSafeContext = () => {
     const ctx = React.useContext(Context);
 
@@ -21,7 +26,7 @@ export function useCreateSafeContext<ContextValue>(errorMessage: string) {
     children: React.ReactNode;
   }) => <Context.Provider value={value}>{children}</Context.Provider>;
 
-  return [Provider, useSafeContext] as const;
+  return [Provider, useSafeContext, useOptionalContext] as const;
 }
 
 export default useCreateSafeContext;
