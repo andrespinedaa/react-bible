@@ -1,8 +1,9 @@
 import useCreateSafeContext from "../../hooks/useCreateSafeContext";
-import { bible } from "../../utilities";
+import { BIBLE_ACTIONS, BIBLE_STATE } from "./BibleDispatch";
 
 interface BibleContext {
-  bible: bible;
+  bible: BIBLE_STATE;
+  bibleDispatch: React.Dispatch<BIBLE_ACTIONS>
 }
 
 export const [BibleProvider, useBibleContext] =

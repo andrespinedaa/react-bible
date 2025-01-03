@@ -1,11 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-import { useBible } from "../../hooks/useBible";
 import { paragraph } from "../../utilities";
-import { VersesProvider } from "../@contexts";
+import { useBibleContext, VersesProvider } from "../@contexts";
 
 export interface VersesProps extends React.ComponentPropsWithRef<"div"> {
-  alignText?: "center" | "left" | "right";
+  textAlign?: React.CSSProperties["textAlign"];
   paragraphs?: paragraph[];
   separateParagraphs?: boolean;
   separateVerses?: boolean;
@@ -14,7 +13,7 @@ export interface VersesProps extends React.ComponentPropsWithRef<"div"> {
 }
 
 const StyledVerses = styled.div<{
-  $alignText?: "center" | "left" | "right";
+  $textAlign?: React.CSSProperties["textAlign"];
   $separateParagraphs?: boolean;
 }>`
   display: flex;
@@ -22,7 +21,7 @@ const StyledVerses = styled.div<{
   flex-wrap: wrap;
   font-size: ${(props) =>
     props.theme.bibleSizes.VerseTextSize[props.theme.defaultSize]};
-  text-align: ${(props) => props.$alignText};
+  text-align: ${(props) => props.$textAlign};
   gap: ${(props) =>
     props.$separateParagraphs && props.theme.bibleVerses.spaceBetweenVerses};
 `;
@@ -32,22 +31,22 @@ function Verses({
   separateVerses = false,
   paragraphs = undefined,
   psalmStyle = true,
-  alignText = "left",
+  textAlign = "left",
   children,
   ...restProps
 }: VersesProps) {
-  const { paragraphs: paragraphsAPI } = useBible();
-  const innerParagraphs = paragraphs ?? paragraphsAPI;
+  const { bible } = useBibleContext();
+  const innerParagraphs = paragraphs ?? bible.paragraphs;
 
   return (
     <StyledVerses
-      $alignText={alignText}
+      $textAlign={textAlign}
       $separateParagraphs={separateParagraphs}
       {...restProps}
     >
       <VersesProvider
         value={{
-          alignText,
+          textAlign,
           psalmStyle,
           separateVerses,
           paragraphs: innerParagraphs,

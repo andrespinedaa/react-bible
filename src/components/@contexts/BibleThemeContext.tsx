@@ -1,9 +1,19 @@
 import React from "react";
 import { ThemeProvider } from "styled-components";
-import { BibleThemeModel } from "../@theme/theme";
+import { DefaultTheme } from "styled-components";
+import styled from "styled-components";
+
+const StyledBibleThemeContext = styled.div`
+  padding: 0;
+  font-family: ${(props) => props.theme.bibleFonts.primary};
+  * {
+    padding: 0;
+    margin: 0;
+  }
+`;
 
 function useBibleThemeContext() {
-  const ThemeContext = React.createContext<BibleThemeModel | null>(null);
+  const ThemeContext = React.createContext<DefaultTheme | null>(null);
 
   const useThemeContext = () => {
     const ctx = React.useContext(ThemeContext);
@@ -13,31 +23,42 @@ function useBibleThemeContext() {
     return ctx;
   };
 
+  const useCreateTheme = (theme: DefaultTheme): DefaultTheme => {
+    return theme;
+  };
+
   const Provider = ({
     children,
     value,
   }: {
     children: React.ReactNode;
-    value: BibleThemeModel;
+    value: DefaultTheme;
   }) => {
     const theme = value.unstyled ? unstyledTheme : value;
     return (
       <ThemeContext.Provider value={theme}>
-        <ThemeProvider theme={theme}>{children}</ThemeProvider>
+        <ThemeProvider theme={theme}>
+          <StyledBibleThemeContext>{children}</StyledBibleThemeContext>
+        </ThemeProvider>
       </ThemeContext.Provider>
     );
   };
 
-  return [Provider, useThemeContext] as const;
+  return [Provider, useThemeContext, useCreateTheme] as const;
 }
 
-const unstyledTheme: BibleThemeModel = {
+const unstyledTheme: DefaultTheme = {
   unstyled: false,
   defaultSize: "small",
   bibleColors: {
     primary: "#000000",
     secondary: "#000000",
     tertiary: "#000000",
+  },
+  prophecy: {
+    bordeRadius: "12px",
+    colorBg: "#fff",
+    padding: "10px"
   },
   bibleFonts: {
     primary: "Arial",
@@ -92,7 +113,17 @@ const unstyledTheme: BibleThemeModel = {
     spaceBetweenVerseAndNumber: "10px",
     spaceBetweenVersesAndTitle: "10px",
     spaceBetweenTitleAndSubTitle: "10px",
+    spaceBetweenProphecyAndVerse: "15px",
+    spacePsalmAndProphecy: "15px",
+  },
+  chapterButtons: {
+    bordeRadius: "none",
+    font: "primary",
+    height: "auto",
+    width: "auto",
+    padding: "auto",
   },
 };
 
-export const [BibleTheme, useBibleTheme] = useBibleThemeContext();
+export const [BibleTheme, useBibleTheme, useCreateTheme] =
+  useBibleThemeContext();

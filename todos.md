@@ -10,11 +10,25 @@
 
 1. Crear versiculos cruzados
 2. Crear un hover para cada el versiculo que se este leyendo.
-3. unstyled
-4. Crear un hover sobre cada versiculo
-5. Exponer el ref de cada componente
+3. Crear un hover sobre cada versiculo
+4. Exponer el ref de cada componente
+5. Hacer loading, skeletons. error, success, warning
+6. Hacer dictionary
+7. Hacer la posibilidad que los crossReferences esten bajo el versiculo
+8. se repiten cuando son separadas por jesus words las referencias
+9. hacer CrossReference con grid
+10. hacer columnas
+11. que la references te lleve a la cita, o que muestre el versiculo,
+12. CrossRefences tenga el versiculo en paralelo con el otro
 
 ## ADDONS
 
 1. Añadir PostCss
-2. Refactorizar Verse y Verses
+
+## [1.0.0] - 2023-10-01
+### Added
+- New feature A
+### Changed
+- Updated feature B
+### Fixed
+- Bug fix C

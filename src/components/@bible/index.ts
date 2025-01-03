@@ -1,3 +1,10 @@
 export { default as BibleStories } from './Bible.stories';
 export { default as Bible } from './Bible';
-export * from './features';
+export { default as BibleBodyStories } from './BibleBody.stories';
+export { default as BibleBody } from './BibleBody';
+export { default as BibleFooterStories } from './BibleFooter.stories';
+export { default as BibleFooter } from './BibleFooter';
+export { default as BibleHeaderStories } from './BibleHeader.stories';
+export { default as BibleHeader } from './BibleHeader';
+export { default as BibleSubHeaderStories } from './BibleSubHeader.stories';
+export { default as BibleSubHeader } from './BibleSubHeader';

@@ -1,22 +1,26 @@
 import React from "react";
 import styled from "styled-components";
-import { bible } from "../../utilities";
+import { bibleType } from "../../utilities";
 import { BibleProvider } from "../@contexts";
 import { sizes } from "../@theme";
-import { BibleBody, BibleFooter, BibleHeader } from "./features";
+import BibleBody from "./BibleBody";
+import BibleFooter from "./BibleFooter";
+import BibleHeader from "./BibleHeader";
+import { useBible } from "../../hooks";
 
 export interface BibleProps extends React.ComponentPropsWithRef<"div"> {
-  bible: bible;
+  bible: bibleType;
   children: React.ReactNode;
   size?: sizes;
 }
 
 const StyledBible = styled.div<{ $size?: sizes }>`
+  position: relative;
   display: flex;
   flex-direction: column;
   border-radius: 12px;
   box-shadow: 0 10px 15px 3px rgba(0, 0, 0, 0.3);
-  padding: 16px;
+  padding: 16px 50px;
   width: ${(props) =>
     props.theme.bibleSizes.bibleWidth[
       props.$size ? props.$size : props.theme.defaultSize
@@ -26,6 +30,7 @@ const StyledBible = styled.div<{ $size?: sizes }>`
       props.$size ? props.$size : props.theme.defaultSize
     ]};
   font-family: ${(props) => props.theme.bibleFonts.primary};
+  gap: 20px;
 `;
 
 function Bible({
@@ -34,8 +39,10 @@ function Bible({
   size = undefined,
   ...restProps
 }: BibleProps) {
+  const { bibleGlobal, bibleDispatch } = useBible({ bible });
+
   return (
-    <BibleProvider value={{ bible }}>
+    <BibleProvider value={{ bible: bibleGlobal, bibleDispatch: bibleDispatch }}>
       <StyledBible $size={`${size}`} {...restProps}>
         {children}
       </StyledBible>

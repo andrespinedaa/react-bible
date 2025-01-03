@@ -1,35 +1,37 @@
-import { spanishVersionsAbrevs, spanishVersionsNames } from "./versions";
 export type all = "all";
 export type both = "both";
-export type lang = "es" | "en";
+export type lang = string;
 export type lenguages = lang[];
 export type testamentsAbrevs = "OT" | "NT";
 
-export type cite = {
-  bookName: string;
-  chapterNumber: number;
-  verseNumberStart: number;
-  verseNumberEnd?: number;
-};
-export type anchor = {
-  verses: verse[];
+export type linkedVerses = {
   bookName: string;
   abrevBookName: string;
   chapterNumber: number;
+  verseNumberStart: number;
+  verseNumberFinish?: number;
 };
+export type reference = {
+  dictionary?: string;
+  refs?: number[];
+};
+
 export type verse = {
   text: string;
   number: number;
+  references?: reference;
+  prophecy?: boolean;
 };
 export type paragraph = {
   title?: string;
   subTitle?: string;
+  sharedStories?: linkedVerses[];
   verses: verse[];
 };
 export type chapter = {
   number: number;
   amountVerses: number;
-  versesAcross: anchor[];
+  crossReferences: (linkedVerses | linkedVerses[])[];
   paragraphs: paragraph[];
 };
 export type book = {
@@ -37,11 +39,11 @@ export type book = {
   name: string;
   amountChapters: number;
   amountVerses: number;
-  testament: testamentsAbrevs;
+  bookTestament: string;
   chapters: chapter[];
 };
 export type testament = {
-  abrev: testamentsAbrevs;
+  abrev: string;
   name: string;
   amountBooks: number;
   amountChapters: number;
@@ -49,8 +51,8 @@ export type testament = {
   books: book[];
 };
 export type version = {
-  abrev: spanishVersionsAbrevs;
-  name: spanishVersionsNames;
+  abrev: string;
+  name: string;
   testament: testament[];
 };
 export type bible = {
@@ -58,6 +60,7 @@ export type bible = {
   versions: version[];
 };
 
-export type letters = "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j" | "k" | "l" | "m" | "n" | "o" | "p" | "q" | "r" | "s" | "t" | "u" | "v" | "w" | "x" | "y" | "z" | "ñ";
-export type lettersEnglish = Exclude<letters, "ñ">;
-export type lettersSpanish = letters;
+export type bibleType = {
+  lenguages: lang[];
+  versions: version[];
+};

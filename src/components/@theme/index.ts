@@ -1,2 +1,1 @@
-export * from './createBibleTheme';
-export * from './theme';
+export * from './theme.d';

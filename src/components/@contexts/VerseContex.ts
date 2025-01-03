@@ -1,11 +1,11 @@
 import useCreateSafeContext from "../../hooks/useCreateSafeContext";
-import { paragraph } from "../../utilities";
+import { linkedVerses, paragraph } from "../../utilities";
 
 type VerseContextProps = {
   title?: string;
   subTitle?: string;
   paragraph: paragraph;
-  refAt: React.MutableRefObject<number | undefined>;
+  sharedStories?: linkedVerses[];
 };
 
 export const [VerseProvider, useVerseContext, useOptionalVerseContext] =

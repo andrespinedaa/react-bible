@@ -1,56 +1,52 @@
 import React from "react";
-import { useBibleContext } from "../components/@contexts";
-import type {
-  anchor,
-  paragraph,
-  book,
-  chapter,
-  testament,
-  version,
-} from "../utilities";
+import {
+  BIBLE_ACTIONS,
+  BIBLE_REDUCER,
+  BIBLE_STATE,
+} from "../components/@contexts";
+import { bibleType, verse } from "../utilities";
 
-type returnUseBible = {
-  version: version;
-  testament: testament;
-  book: book;
-  chapter: chapter;
-  paragraphs: paragraph[];
-  references: anchor[];
+type useBibleProps = {
+  bible: bibleType;
 };
 
-export function useBible(): returnUseBible {
-  const { bible } = useBibleContext();
-  const [version, setVersion] = React.useState<version>({} as version);
-  const [testament, setTestament] = React.useState<testament>({} as testament);
-  const [book, setBook] = React.useState<book>({} as book);
-  const [chapter, setChapter] = React.useState<chapter>({} as chapter);
-  const [paragraphs, setParagraphs] = React.useState<paragraph[]>([]);
-  const [references, setReferences] = React.useState<anchor[]>([]);
+type returnUseBible = {
+  bibleGlobal: BIBLE_STATE;
+  bibleDispatch: React.Dispatch<BIBLE_ACTIONS>;
+};
 
-  const setter = React.useCallback(() => {
-    setVersion(bible.versions[0]);
-    setTestament(bible.versions[0].testament[0]);
-    setBook(bible.versions[0].testament[0].books[0]);
-    setChapter(bible.versions[0].testament[0].books[0].chapters[0]);
-    setParagraphs(
-      bible.versions[0].testament[0].books[0].chapters[0].paragraphs,
-    );
-    setReferences(
-      bible.versions[0].testament[0].books[0].chapters[0].versesAcross,
-    );
-  }, [bible]);
-
+export function useBible({ bible }: useBibleProps): returnUseBible {
+  /* WE VALIDATE IF A BIBLE EXISTS */
   React.useEffect(() => {
-    if (!bible) throw new Error("Bible Context is not safe");
-    setter();
+    if (!bible) {
+      throw new Error("BIBLE CONTEXT IS NOT SAFE");
+    }
   }, [bible]);
+
+  const INITIAL_STATE: BIBLE_STATE = {
+    chapterNumber: bible.versions[0].testament[0].books[0].chapters[0].number,
+    versions: bible.versions,
+    chapter: bible.versions[0].testament[0].books[0].chapters[0],
+    book: bible.versions[0].testament[0].books[0],
+    paragraphs:
+      bible.versions[0].testament[0].books[0].chapters[0].paragraphs || [],
+    crossReferences:
+      bible.versions[0].testament[0].books[0].chapters[0].crossReferences,
+    firstVerse:
+      bible.versions[0].testament[0].books[0].chapters[0].paragraphs[0]
+        .verses[0],
+    lastVerse: bible.versions[0].testament[0].books[0].chapters[0].paragraphs
+      .at(-1)
+      ?.verses.at(-1) as verse,
+  };
+
+  const [bibleGlobal, bibleDispatch] = React.useReducer(
+    BIBLE_REDUCER,
+    INITIAL_STATE,
+  );
 
   return {
-    version,
-    book,
-    chapter,
-    testament,
-    paragraphs,
-    references,
+    bibleGlobal,
+    bibleDispatch,
   };
 }

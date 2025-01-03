@@ -1,0 +1,50 @@
+{
+  "abrev": "RVR1960",
+  "name": "Reina Valera",
+  "testaments": [
+    {
+      "abrev": "NT",
+      "testamentName": "Nuevo Testamento",
+      "amountBooks": 27,
+      "amountChapters": 260,
+      "amountVerses": 7957,
+      "books": [
+        {
+          "abrev": "Mt",
+          "name": "Mateo",
+          "amountChapters": 28,
+          "amountVerses": 1071,
+          "testament": "NT",
+          "chapters": [
+            {}
+          ]
+        },
+        {
+          "abrev": "",
+          "name": "",
+          "amountChapters": 0,
+          "amountVerses": 0,
+          "testament": "NT",
+          "chapters": []
+        },
+        {
+          "abrev": "",
+          "name": "",
+          "amountChapters": 0,
+          "amountVerses": 0,
+          "testament": "NT",
+          "chapters": []
+        },
+        {
+          "abrev": "",
+          "name": "",
+          "amountChapters": 0,
+          "amountVerses": 0,
+          "testament": "NT",
+          "chapters": []
+        }
+      ]
+    },
+    {}
+  ]
+}

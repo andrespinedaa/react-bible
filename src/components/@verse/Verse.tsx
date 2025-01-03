@@ -1,10 +1,15 @@
+import _ from "lodash";
 import React from "react";
 import styled from "styled-components";
-import { useVersesContext, VerseProvider } from "../@contexts";
 import { v4 as uuidv4 } from "uuid";
-import { VerseBody, VerseNumber, VerseText } from "./verseBody";
-import { VerseHeader, VerseSubTitle, VerseTitle } from "./verseHeader";
-import { VerseReference } from "./verseReference";
+import { useBibleContext, VerseProvider } from "../@contexts";
+import VerseBody from "./VerseBody";
+import VerseHeader from "./VerseHeader";
+import VerseNumber from "./VerseNumber";
+import VerseReference from "./VerseReference";
+import VerseSubTitle from "./VerseSubTitle";
+import VerseText from "./VerseText";
+import VerseTitle from "./VerseTitle";
 
 interface VerseProps extends React.ComponentPropsWithRef<"div"> {
   children?: React.ReactNode;
@@ -15,20 +20,32 @@ const StyledVerse = styled.div`
 `;
 
 function Verse({ children, ...restProps }: VerseProps) {
-  const { paragraphs } = useVersesContext();
-  const refAt = React.useRef<number | undefined>(undefined);
+  const { bible, bibleDispatch } = useBibleContext();
+
+  React.useEffect(() => {
+    if (bible.paragraphs?.length > 0) {
+      bibleDispatch({
+        type: "SET_FIRST_VERSE",
+        payload: _.first(_.first(bible.paragraphs)?.verses),
+      });
+      bibleDispatch({
+        type: "SET_LAST_VERSE",
+        payload: _.last(_.last(bible.paragraphs)?.verses),
+      });
+    }
+  }, [bible.paragraphs, bibleDispatch]);
 
   return (
     <StyledVerse {...restProps}>
-      {paragraphs.map((paragraph) => {
+      {bible.paragraphs?.map((paragraph) => {
         return (
           <VerseProvider
             key={uuidv4()}
             value={{
-              refAt,
               paragraph,
               subTitle: paragraph.subTitle,
               title: paragraph.title,
+              sharedStories: paragraph.sharedStories,
             }}
           >
             {children}

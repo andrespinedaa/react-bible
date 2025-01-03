@@ -1,28 +1,27 @@
+import React from "react";
 import styled from "styled-components";
-import { useBible } from "../../hooks/useBible";
-import { useVersesContext } from "../@contexts";
+import { useBibleContext } from "../@contexts";
 
 interface ChapterNumberProps {
-  ChapterNumber?: number;
-  NumberBig?: boolean;
+  chapterNumber?: number;
+  numberSize?: React.CSSProperties["fontSize"];
 }
 
-const StyledChapterNumber = styled.span<{ $NumberBig: boolean }>`
-  font-size: ${({ $NumberBig }) =>
-    $NumberBig ? "calc(2 * 1.5rem)" : "1.5rem"};
+const StyledChapterNumber = styled.span<{
+  $numberSize: React.CSSProperties["fontSize"];
+}>`
+  font-size: ${({ $numberSize }) => $numberSize};
 `;
 
 function ChapterNumber({
-  ChapterNumber,
-  NumberBig = false,
+  chapterNumber,
+  numberSize = "1em",
 }: ChapterNumberProps) {
-  const { firstNumberBig } = useVersesContext();
-  const { chapter } = useBible();
-  const innerNumberBig = NumberBig || firstNumberBig;
-  const innerChapterNumber = ChapterNumber || chapter.number;
+  const { bible } = useBibleContext();
+  const innerChapterNumber = chapterNumber ?? bible.chapter.number;
 
   return (
-    <StyledChapterNumber $NumberBig={innerNumberBig}>
+    <StyledChapterNumber $numberSize={numberSize}>
       {innerChapterNumber}
     </StyledChapterNumber>
   );

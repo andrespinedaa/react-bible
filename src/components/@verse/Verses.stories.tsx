@@ -1,9 +1,15 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import Verse from "./Verse";
-import { VerseBody, VerseNumber, VerseText } from "./verseBody";
-import { VerseHeader, VerseSubTitle, VerseTitle } from "./verseHeader";
-import { VerseReference } from "./verseReference";
-import Verses from "./Verses";
+import {
+  Verse,
+  Verses,
+  VerseBody,
+  VerseNumber,
+  VerseText,
+  VerseHeader,
+  VerseSubTitle,
+  VerseTitle,
+  VerseReference,
+} from ".";
 
 type VersesProps = React.ComponentProps<typeof Verses>;
 
@@ -11,7 +17,7 @@ const meta: Meta<VersesProps> = {
   title: "Verse/Verses",
   component: Verses,
   argTypes: {
-    alignText: {
+    textAlign: {
       control: "select",
       options: ["left", "center", "right"],
       description: "Align text",
@@ -48,7 +54,7 @@ type Story = StoryObj<VersesProps>;
 export const VersesNormal: Story = {
   name: "Verses Normal",
   args: {
-    alignText: "left",
+    textAlign: "left",
     separateParagraphs: true,
     separateVerses: false,
     psalmStyle: true,
@@ -74,7 +80,7 @@ export const VersesNormal: Story = {
 export const VersesPsalm: Story = {
   name: "Verses Psalm",
   args: {
-    alignText: "left",
+    textAlign: "left",
     separateParagraphs: true,
     separateVerses: true,
     psalmStyle: true,

@@ -1,19 +1,22 @@
+import React from "react";
 import styled from "styled-components";
-import { useBible } from "../../hooks";
+import { useBibleContext } from "../@contexts";
 
-interface BookNameProps {
+interface BookNameProps extends React.ComponentPropsWithRef<"span"> {
+  children?: React.ReactNode;
   bookName?: string;
 }
+const StyledBookName = styled.span``;
 
-const StyledBookName = styled.div``;
+function BookName({
+  bookName = undefined,
+  children,
+  ...restProps
+}: BookNameProps) {
+  const { bible } = useBibleContext();
+  const innerBookName = bookName ?? bible.book.name;
 
-function BookName({ bookName }: BookNameProps) {
-  const {
-    book: { name },
-  } = useBible();
-  const innerBookName = bookName || name;
-
-  return <StyledBookName>{innerBookName}</StyledBookName>;
+  return <StyledBookName {...restProps}>{innerBookName}</StyledBookName>;
 }
 
 export default BookName;
